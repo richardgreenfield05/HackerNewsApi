@@ -1,6 +1,6 @@
 using HackerNewsApi.Exceptions;
 using Serilog;
-
+Environment.SetEnvironmentVariable("CORECLR_GLOBAL_INVARIANT", "1");
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
