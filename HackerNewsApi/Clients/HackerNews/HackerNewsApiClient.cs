@@ -10,12 +10,10 @@ namespace HackerNewsApi.Clients.HackerNews
         private readonly HttpClient _client;
         private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
         private readonly ILogger<HackerNewsClient> _logger;
-        private const string BaseUrl = "https://hacker-news.firebaseio.com/v0/";
 
         public HackerNewsClient(HttpClient client, ILogger<HackerNewsClient> logger)
         {
             _client = client;
-            _client.BaseAddress = new Uri(BaseUrl);
             _logger = logger;
 
             _retryPolicy = Policy
@@ -32,7 +30,7 @@ namespace HackerNewsApi.Clients.HackerNews
             try
             {
                 var response = await _retryPolicy.ExecuteAsync(() =>
-                    _client.GetAsync($"{BaseUrl}topstories.json"));
+                    _client.GetAsync($"topstories.json"));
 
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();
@@ -54,7 +52,7 @@ namespace HackerNewsApi.Clients.HackerNews
             try
             {
                 var response = await _retryPolicy.ExecuteAsync(() =>
-                    _client.GetAsync($"{BaseUrl}item/{id}.json"));
+                    _client.GetAsync($"item/{id}.json"));
 
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();

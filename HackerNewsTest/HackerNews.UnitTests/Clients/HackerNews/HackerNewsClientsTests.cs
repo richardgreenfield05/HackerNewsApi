@@ -8,6 +8,7 @@ using NSubstitute;
 namespace HackerNewsTest.Clients.HackerNews
 {
     [TestClass]
+    [TestCategory("Unit")]
     public class HackerNewsClientTests
     {
         private HttpClient _httpClient;

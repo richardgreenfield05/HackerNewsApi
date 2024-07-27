@@ -1,3 +1,4 @@
+using HackerNewsApi.Clients.HackerNews;
 using HackerNewsApi.Exceptions;
 using Serilog;
 Environment.SetEnvironmentVariable("CORECLR_GLOBAL_INVARIANT", "1");
@@ -12,6 +13,18 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 
 builder.Services.AddControllers();
 builder.Services.AddHttpClient<HttpClient>();
+builder.Services.AddHttpClient<HackerNewsClient>(client =>
+{
+    var baseUrl = builder.Configuration["HackerNewsApi:BaseUrl"];
+    if (baseUrl != null)
+    {
+        client.BaseAddress = new Uri(baseUrl);
+    }
+    else
+    {
+        throw new ArgumentNullException("HackerNewsApi:BaseUrl", "Base URL must be provided in the configuration.");
+    }
+});
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
