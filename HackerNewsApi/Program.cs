@@ -11,7 +11,7 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .Enrich.FromLogContext());
 
 builder.Services.AddControllers();
-
+builder.Services.AddHttpClient<HttpClient>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
