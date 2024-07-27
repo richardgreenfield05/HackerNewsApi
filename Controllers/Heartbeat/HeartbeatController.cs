@@ -18,5 +18,11 @@ namespace HackerNewsApi.Controllers.Heartbeat
                 Time = currentTime
             });
         }
+        
+        [HttpGet("Exception")]
+        public IActionResult GetException()
+        {
+            throw new Exception("Heartbeat check exception");
+        }
     }
 }
