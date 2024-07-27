@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using HackerNewsApi.Clients.HackerNews;
 using HackerNewsApi.Exceptions;
 using Serilog;
@@ -10,7 +11,7 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Configuration(context.Configuration)
     .ReadFrom.Services(services)
     .Enrich.FromLogContext());
-
+builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient<HttpClient>();
 builder.Services.AddHttpClient<HackerNewsClient>(client =>
@@ -25,6 +26,9 @@ builder.Services.AddHttpClient<HackerNewsClient>(client =>
         throw new ArgumentNullException("HackerNewsApi:BaseUrl", "Base URL must be provided in the configuration.");
     }
 });
+
+builder.Services.AddCustomRateLimiting(builder.Configuration);
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -46,6 +50,7 @@ app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseIpRateLimiting();
 app.Run();
 
 Log.CloseAndFlush();
