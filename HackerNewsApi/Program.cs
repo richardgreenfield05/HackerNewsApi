@@ -12,6 +12,7 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Services(services)
     .Enrich.FromLogContext());
 builder.Services.AddMemoryCache();
+builder.Services.AddResponseCaching();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient<HttpClient>();
 builder.Services.AddHttpClient<HackerNewsClient>(client =>
@@ -51,6 +52,7 @@ app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.UseIpRateLimiting();
+app.UseResponseCaching();
 app.Run();
 
 Log.CloseAndFlush();
