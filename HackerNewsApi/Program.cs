@@ -1,4 +1,6 @@
+using AspNetCoreRateLimit;
 using HackerNewsApi.Clients.HackerNews;
+using HackerNewsApi.Configuration.Models;
 using HackerNewsApi.Exceptions;
 using Serilog;
 Environment.SetEnvironmentVariable("CORECLR_GLOBAL_INVARIANT", "1");
@@ -10,7 +12,8 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Configuration(context.Configuration)
     .ReadFrom.Services(services)
     .Enrich.FromLogContext());
-
+builder.Services.AddMemoryCache();
+builder.Services.AddResponseCaching();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient<HttpClient>();
 builder.Services.AddHttpClient<HackerNewsClient>(client =>
@@ -24,6 +27,20 @@ builder.Services.AddHttpClient<HackerNewsClient>(client =>
     {
         throw new ArgumentNullException("HackerNewsApi:BaseUrl", "Base URL must be provided in the configuration.");
     }
+});
+
+builder.Services.AddCustomRateLimiting(builder.Configuration);
+builder.Services.AddCors(options =>
+{
+    var frontendSettings = builder.Configuration.GetSection("Frontend").Get<FrontendSettings>();
+
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins(frontendSettings?.Urls.ToArray() ?? [])
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
 });
 var app = builder.Build();
 
@@ -46,6 +63,9 @@ app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseIpRateLimiting();
+app.UseResponseCaching();
+app.UseCors("AllowFrontend");
 app.Run();
 
 Log.CloseAndFlush();

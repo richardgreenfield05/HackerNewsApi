@@ -1,4 +1,5 @@
-﻿using HackerNewsApi.Clients.HackerNews;
+﻿using HackerNewsApi.Caching;
+using HackerNewsApi.Clients.HackerNews;
 using HackerNewsApi.Entities.HackerNews;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace HackerNewsApi.Controllers.HackerNews
         }
 
         [HttpGet("story/{id}")]
+        [CacheControl(1)]
         public async Task<IActionResult> GetStoryById(int id)
         {
             HackerNewsStory? story = await hackerNewsClient.GetStoryByIdAsync(id);
