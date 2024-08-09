@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerNewsApi", "HackerNewsApi.csproj", "{92E44C6A-9ABE-4667-8699-7715A4243411}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerNews.UnitTests", "..\HackerNewsTest\HackerNews.UnitTests\HackerNews.UnitTests.csproj", "{3F42B8FC-E7E6-4299-9CC4-E2DCF3144BBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64AC50FD-70BA-4853-8C01-A93FC4E52BB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64AC50FD-70BA-4853-8C01-A93FC4E52BB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64AC50FD-70BA-4853-8C01-A93FC4E52BB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64AC50FD-70BA-4853-8C01-A93FC4E52BB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92E44C6A-9ABE-4667-8699-7715A4243411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92E44C6A-9ABE-4667-8699-7715A4243411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92E44C6A-9ABE-4667-8699-7715A4243411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92E44C6A-9ABE-4667-8699-7715A4243411}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F42B8FC-E7E6-4299-9CC4-E2DCF3144BBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F42B8FC-E7E6-4299-9CC4-E2DCF3144BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F42B8FC-E7E6-4299-9CC4-E2DCF3144BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F42B8FC-E7E6-4299-9CC4-E2DCF3144BBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
