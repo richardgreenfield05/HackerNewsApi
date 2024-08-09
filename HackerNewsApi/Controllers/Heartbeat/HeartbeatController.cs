@@ -3,7 +3,7 @@
 namespace HackerNewsApi.Controllers.Heartbeat
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class HeartbeatController(ILogger<HeartbeatController> logger) : ControllerBase
     {
         [HttpGet]
